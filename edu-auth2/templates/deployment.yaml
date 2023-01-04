@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: edu-auth2
-  namespace: dev
 spec:
   replicas: {{ .Values.replicas }}
   selector:
