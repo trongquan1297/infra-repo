@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: edu-auth2
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: edu-auth2
@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: edu-auth2
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: 80
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+        - name: http
+          containerPort: 80
+          protocol: TCP
