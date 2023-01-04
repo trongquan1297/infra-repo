@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: edu-auth2
-        image: image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 80

@@ -1,63 +1,15 @@
-
-
 replicaCount: 1
 
 image:
   repository: 820883240614.dkr.ecr.ap-southeast-1.amazonaws.com/edu_auth
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.7"
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
+  tag: v1.0.6
 
 
 service:
   type: ClusterIP
   port: 31004
-
-ingress:
-  enabled: true
-  className: "alb"
-  annotations: {}
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: dev-group
-    alb.ingress.kubernetes.io/subnets: subnet-0ca48d89ebbec7330, subnet-0eb1348b46310fcb2
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:820883240614:certificate/ae8cb8eb-b84b-4c67-bbe8-d708f65fdd31
-  hosts:
-    - host: auth.stg.monkeyuni.com
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  limits:
-     cpu: 100m
-     memory: 128Mi
-  requests:
-     cpu: 100m
-     memory: 128Mi
 
 autoscaling:
   enabled: false
@@ -65,8 +17,3 @@ autoscaling:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
