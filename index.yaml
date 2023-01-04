@@ -3,12 +3,12 @@ entries:
   edu-auth2:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2023-01-04T18:29:37.80101+07:00"
+    created: "2023-01-04T18:44:38.193588+07:00"
     description: A Helm chart for Kubernetes
-    digest: 5e87ea194dfb57b347789b6e3e89b992f2b777d0997d4cbb02849719201da0ef
+    digest: fda187c2718ed12f6bc4e0fc33d0bada106d76679eb0c561fcd77fa28312c60c
     name: edu-auth2
     type: application
     urls:
     - edu-auth2-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-04T18:29:37.800374+07:00"
+generated: "2023-01-04T18:44:38.192988+07:00"
