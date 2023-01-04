@@ -5,6 +5,8 @@ image:
   pullPolicy: Always
   tag: "v1.0.6"
 
+nameOverride: ""
+fullnameOverride: ""
 
 service:
   type: ClusterIP
