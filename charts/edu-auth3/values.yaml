@@ -7,7 +7,7 @@ image:
   repository: 820883240614.dkr.ecr.ap-southeast-1.amazonaws.com/edu_auth
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.9"
+  tag: "$(cd /data-mount/jenkins/workspace/STG-edu_auth; git describe --tags)"
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
