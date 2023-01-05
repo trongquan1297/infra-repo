@@ -14,7 +14,7 @@ spec:
       labels:
         {{- include "edu-auth3.selectorLabels" . | nindent 8 }}
     spec:
-      #serviceAccountName: {{ include "edu-auth3.serviceAccountName" . }}
+      serviceAccountName: {{ include "edu-auth3.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
