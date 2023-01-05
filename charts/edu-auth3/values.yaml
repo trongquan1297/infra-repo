@@ -7,7 +7,7 @@ image:
   repository: 820883240614.dkr.ecr.ap-southeast-1.amazonaws.com/edu_auth
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.9"
+  tag: "v1.0.8"
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
