@@ -1,4 +1,4 @@
-# Default v1.2.1.
+# Default v1.2.2.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,7 +7,7 @@ image:
   repository: 820883240614.dkr.ecr.ap-southeast-1.amazonaws.com/edu_auth
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.2.1"
+  tag: "v1.2.2"
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
