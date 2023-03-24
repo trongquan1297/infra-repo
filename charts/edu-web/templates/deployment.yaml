@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "edu-web-beta.fullname" . }}
+  name: {{ include "edu-web.fullname" . }}
   labels:
-    {{- include "edu-web-beta.labels" . | nindent 4 }}
+    {{- include "edu-web.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "edu-web-beta.selectorLabels" . | nindent 6 }}
+      {{- include "edu-web.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "edu-web-beta.selectorLabels" . | nindent 8 }}
+        {{- include "edu-web.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "edu-web-beta.serviceAccountName" . }}
+      serviceAccountName: {{ include "edu-web.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
