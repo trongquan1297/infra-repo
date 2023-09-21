@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demo-web.fullname" . }}
+  labels:
+    {{- include "demo-web.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit:  {{ .Values.revision }}
+  # replicas: {{ .Values.replicaCount.app }}
+  selector:
+    matchLabels:
+      {{- include "demo-web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "demo-web.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "demo-web.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: ip2location-volume
+              mountPath: /var/www/database/ip2location
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu}}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu}}
+              memory: {{ .Values.resources.requests.memory }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30       
+            periodSeconds: 20
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 10
+        {{ if .Values.queue.enabled }}
+        - name: {{ .Values.queue.name}}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - php
+          args:
+            - artisan
+            - queue:work
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: {{ .Values.queue.limits.cpu}}
+              memory: {{ .Values.queue.limits.memory}}
+            requests:
+              cpu: {{ .Values.queue.requests.cpu}}
+              memory: {{ .Values.queue.requests.memory}}
+        {{ end }}
+      volumes:
+        - name: ip2location-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+

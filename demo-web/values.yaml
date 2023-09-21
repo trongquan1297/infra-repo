@@ -1,0 +1,67 @@
+replicaCount:
+  app: 1
+  queue: 1
+revision: 3
+image:
+  repository: newmoon22/app-demo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v1.2.27"
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  name: ""
+service:
+  type: ClusterIP
+  port: 80
+resources:
+  limits:
+     cpu: 100m
+     memory: 300Mi
+  requests:
+     cpu: 70m
+     memory: 200Mi
+autoscaling:
+  enabled: true  # <-- change to true to create HPA
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 60
+  targetMemoryUtilizationPercentage: 60
+ingress:
+  enabled: false
+  group: dev
+  ssl: "v1.2.27d"
+  rules:
+    host: 
+    port: 80
+queue:
+  enabled: true
+  name: demo-web-queue
+  limits:
+    cpu: 100m
+    memory: 200Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+  hpa:
+    enabled: false
+    name: demo-web-queue
+    revision: 3
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 90
+    targetMemoryUtilizationPercentage: 80
+pvc:
+  enabled: false
+  storageClassName: efs-sc
+  publicdir:
+    name: demo-web-publicdir-pvc
+    size: 100Mi
+    volume:
+      name: demo-web-public
+      path: /var/www/public
+
